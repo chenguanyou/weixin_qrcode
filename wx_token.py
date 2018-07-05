@@ -44,19 +44,18 @@ def post_wxcode(code_urls=code_urls, path="pages/index/index", width=430):
     return code
 
 
-def image_saver(image_paths="upload/images/", image_name=""):
+def image_saver(image_paths="upload/images/", image_name="", qr_code=post_wxcode()):
     '''
     保存图片到文件
     :param file_path:
     :param file_name:
     :return:
     '''
-    test_code = post_wxcode()
     image_path = os.path.join(BASE_DIR, image_paths)
     image_names = image_path + image_name + '.png'
     if os.path.exists(image_path) == False:
         os.mkdir(image_path)
-    wx_code = Image.open(BytesIO(test_code.content))
+    wx_code = Image.open(BytesIO(qr_code.content))
     wx_code.save(image_names)
     return image_paths + image_name + '.png'
 
